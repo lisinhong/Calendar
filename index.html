@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>Calendar</title>
+  
+  
+  <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
+  <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+  <link rel="stylesheet" href="css/style.css">
+
+  
+</head>
+
+<body>
+
+  <div id="app">
+  <div id="calendar" class="clearfix">
+    <div class="header clearfix">
+      <h4 class="title">{{showedYear}}年{{showedMonth}}月</h4>
+      <div class="month-control">
+        <div class="btn-next" @click="changeMonth('next')">
+          <i class="fa fa-chevron-up" aria-hidden="true"></i>
+        </div>
+        <div class="btn-prev" @click="changeMonth('prev')">
+          <i class="fa fa-chevron-down" aria-hidden="true"></i>
+        </div>
+      </div>
+      <div class="btn-today" @click="backToToday">今天</div>
+    </div>
+    <div class="weekday" v-for="weekday in weekdays">
+      <h5>{{weekday}}</h5>
+      <hr>  
+    </div>
+    <div class="day-wrapper">
+      <day 
+           :month-info="monthInfo"
+           :showed-year="showedYear"
+           :showed-month="showedMonth"
+           :current-date="currentDate"
+           :todo-list="todoList"
+           >
+      </day>
+
+    </div>
+  </div>
+</div>
+
+<template id="day">
+  <div>
+    <div class="day prev-month" v-for="date in range(showedDateOfPrevMonth, dateOfPrevMonth)">
+      <h5>{{date}}</h5>
+    </div>
+    <div class="day" :class="{today: String(showedMonth)+String(date)==currentDate}" v-for="(date, i) in monthInfo[showedMonth]['days']">
+      <h5>
+        <span v-if="i==0">{{showedMonth}}月</span><span>{{date}}日</span>
+      </h5>
+      <div class="todo-wrapper">
+        <todo-list 
+                   :todo-list="todoList" 
+                   :todos="todos"
+                   :date-key="String(showedMonth)+String(date)"
+                   v-for="(todos, key) in todoList"
+                   v-if="key == String(showedMonth)+String(date)"
+                   ></todo-list>
+        <add-todo 
+                  :todo-list="todoList"
+                  :todo-key="String(showedMonth)+String(date)"
+                  ></add-todo>
+      </div>
+    </div>
+    <div class="day next-month" v-for="(date, i) in showedDateOfNextMonth">
+      <h5>
+        <span v-if="i==0">{{(showedMonth+1)>12?showedMonth-11:showedMonth+1}}月</span><span>{{date}}日</span>
+      </h5>
+    </div>
+  </div>
+</template>
+<template id="todo-list">
+  <div>
+    <div class="todo-list clearfix" v-for="(todo, i) in todos">
+      <input type="checkbox" :id="'ckb-done'+dateKey+i" class="ckb-done">
+      <label class="ckb-todo" :for="'ckb-done'+dateKey+i">
+        <i class="fa fa-check" aria-hidden="true"></i>
+      </label>
+      <p>{{todo}}</p>
+      <i class="fa fa-trash" aria-hidden="true" @click="deleteTodo(dateKey, i)"></i>
+    </div>
+  </div>
+</template>
+<template id="add-todo">
+  <div class="add-todo-wrapper" @mouseover="showAddingTodoText=true" @mouseout="showAddingTodoText=false">
+    <div class="add-todo" v-if="showAddingTodoText && !addingTodo" @click="addingTodo=true">
+      <i class="fa fa-plus-circle" aria-hidden="true"></i>
+      <p>新增待辦事項</p>
+    </div>
+    <form class="form-add-todo clearfix" @submit.prevent="addTodo(todoKey)" v-if="addingTodo">
+      <input class="form-control" type="text" autofocus v-model="newTodo" />
+      <i class="fa fa-times" aria-hidden="true" @click="addingTodo=false"></i>
+    </form>
+  </div>
+</template>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.min.js'></script>
+<script  src="js/index.js"></script>
+
+
+
+
+</body>
+
+</html>

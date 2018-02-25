@@ -1,0 +1,207 @@
+hmtl, body {
+  background-color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+}
+
+h4 {
+  font-size: 20px;
+}
+
+h5 {
+  font-size: 18px;
+  font-weight: normal;
+  margin: 10px 0;
+}
+
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+
+#calendar {
+  width: 900px;
+  position: relative;
+  background-color: #f7f7f7;
+  border: 1px solid;
+}
+
+.header {
+  display: flex;
+  flex-direction: horizon;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.title {
+  float: left;
+  width: 120px;
+  margin: 0;
+}
+
+.weekday {
+  float: left;
+  width: calc(100% / 7);
+  text-align: center;
+}
+.weekday hr {
+  margin-bottom: 0;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.day {
+  box-sizing: border-box;
+  float: left;
+  width: calc(100% / 7);
+  height: 110px;
+  overflow: hidden;
+  border: 1px solid #E0DFE0;
+  padding: 5px 10px;
+}
+.day h5 {
+  text-align: right;
+  margin: 8px 0;
+}
+
+.day.today {
+  background-color: #FEDFD9;
+}
+
+.month-control {
+  display: flex;
+  flex-direction: column;
+  margin-right: 10px;
+}
+.month-control .btn-prev, .month-control .btn-next {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid;
+  cursor: pointer;
+}
+.month-control .btn-prev:active, .month-control .btn-next:active {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.month-control .btn-prev {
+  border-radius: 0 0 5px 5px;
+  margin-top: -0.5px;
+}
+.month-control .btn-next {
+  border-radius: 5px 5px 0 0;
+  margin-bottom: -0.5px;
+}
+
+.btn-today {
+  border: 1px solid;
+  padding: 0 0.6em;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.btn-today:active {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.prev-month, .next-month {
+  color: #b6b6b6;
+}
+
+.todo-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 60px;
+}
+
+.todo-list {
+  flex: 0 0 20px;
+  width: 100%;
+  color: #909091;
+}
+.todo-list * {
+  line-height: 20px;
+}
+.todo-list .ckb-done {
+  display: none;
+}
+.todo-list .ckb-done:checked + .ckb-todo .fa-check {
+  display: inline-block;
+}
+.todo-list .ckb-todo {
+  width: 14px;
+  height: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  float: left;
+  border: 1px solid #909091;
+  margin-top: calc((20px - 12px)/2);
+  margin-right: 4px;
+  margin-bottom: 0;
+  cursor: pointer;
+}
+.todo-list .ckb-todo .fa-check {
+  color: #909091;
+  font-size: 12px;
+  display: none;
+}
+.todo-list p {
+  float: left;
+  margin: 0;
+  font-size: 14px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: calc(100% - 40px);
+}
+.todo-list .fa-trash {
+  float: right;
+  font-size: 16px;
+  cursor: pointer;
+  display: none;
+}
+.todo-list:hover .fa-trash {
+  display: inline-block;
+}
+
+.add-todo-wrapper {
+  flex: 1 0 auto;
+}
+
+.add-todo * {
+  float: left;
+  cursor: pointer;
+  color: #909091;
+}
+.add-todo .fa-plus-circle {
+  margin-right: 4px;
+  font-size: 16px;
+}
+.add-todo p {
+  margin: 0;
+  font-size: 12px;
+}
+
+.form-add-todo .form-control {
+  float: left;
+  width: calc(100% - 18px);
+  font-size: 14px;
+  line-height: 20px;
+  height: 20px;
+  padding: 0 4px;
+}
+.form-add-todo .fa-times {
+  float: right;
+  font-size: 14px;
+  margin-top: calc((20px - 14px)/2);
+  color: #909091;
+  cursor: pointer;
+}
